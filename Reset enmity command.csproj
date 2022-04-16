@@ -3,8 +3,9 @@
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
     <OutputType>Library</OutputType>
-    <AssemblyVersion>0.0.1.1</AssemblyVersion>
+    <AssemblyVersion>0.0.1.2</AssemblyVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <FileVersion>0.0.1.2</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -17,7 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="DalamudPackager" Version="2.1.5" />
+    <PackageReference Include="DalamudPackager" Version="2.1.6" />
   </ItemGroup>
 
   <ItemGroup>

@@ -22,7 +22,6 @@ namespace ResetEnmityCommand
 {
 	public class Plugin : IDalamudPlugin
 	{
-		[PluginService] public static DalamudPluginInterface DalamudPluginInterface { get; private set; }
 		[PluginService] public static TargetManager TargetManager { get; private set; }
 		//[PluginService] public static ObjectTable ObjectTable { get; private set; }
 		[PluginService] public static GameGui GameGui { get; private set; }
@@ -62,18 +61,17 @@ namespace ResetEnmityCommand
 			void ResetAll(string s, string s1)
 			{
 				var addonByName = GameGui.GetAddonByName("_EnemyList", 1);
-				if (addonByName != IntPtr.Zero)
-				{
-					var addon = (AddonEnemyList*)addonByName;
-					var numArray = FFXIVClientStructs.FFXIV.Client.System.Framework.Framework.Instance()->GetUiModule()->RaptureAtkModule.AtkModule.AtkArrayDataHolder.NumberArrays[19];
+				if (addonByName == IntPtr.Zero) return;
+				
+				var addon = (AddonEnemyList*)addonByName;
+				var numArray = FFXIVClientStructs.FFXIV.Client.System.Framework.Framework.Instance()->GetUiModule()->GetRaptureAtkModule()->AtkModule.AtkArrayDataHolder.NumberArrays[19];
 
-					for (var i = 0; i < addon->EnemyCount; i++)
-					{
-						var enemyObjectId = numArray->IntArray[8 + i * 6];
-						var enemyChara = CharacterManager.Instance()->LookupBattleCharaByObjectId(enemyObjectId);
-						if (enemyChara is null) continue;
-						if (enemyChara->Character.NameID == 541) ResetEnmity(enemyObjectId);
-					}
+				for (var i = 0; i < addon->EnemyCount; i++)
+				{
+					var enemyObjectId = numArray->IntArray[8 + i * 6];
+					var enemyChara = CharacterManager.Instance()->LookupBattleCharaByObjectId(enemyObjectId);
+					if (enemyChara is null) continue;
+					if (enemyChara->Character.NameID == 541) ResetEnmity(enemyObjectId);
 				}
 			}
 		}
